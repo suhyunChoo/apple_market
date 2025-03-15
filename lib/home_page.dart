@@ -28,6 +28,18 @@ class _HomePageState extends State<HomePage> {
       List<List<dynamic>> listData =
           const CsvToListConverter().convert(rawData);
 
+      //리스트에서 금액을 나타내는 부분을 #,### 형식으로 포매팅
+      //개행문자 인식시키고, 불필요한 '+', '"' 삭제
+      for (var row in listData) {
+        if (row[5].runtimeType == int) {
+          row[3] = row[3].replaceAll('"', '');
+          row[3] = row[3].replaceAll('+', '');
+          row[3] = row[3].replaceAll('\\n', '\n');
+          row[5] = '${numberFormat.format(row[5]).toString()}원';
+          print(row[3]);
+        }
+      }
+
       setState(() {
         csvData = listData.sublist(2);
       });
@@ -40,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('르탄동'),
+          title: Align(alignment: Alignment.centerLeft, child: Text('르탄동')),
           actions: [
             IconButton(
               icon: Icon(CupertinoIcons.bell),
@@ -65,8 +77,12 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DetailPage(csvRow: csvRow,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailPage(
+                                  csvRow: csvRow,
+                                )));
                   },
                   child: Container(
                     height: 140,
@@ -75,15 +91,14 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
-                        Container(
-                          width: 100,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/${csvRow[1]}.png'),
-                              fit: BoxFit.cover,
-                            ),
+                        ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(16), // ✅ 모서리를 둥글게 설정
+                          child: Image.asset(
+                            width: 100,
+                            height: double.infinity,
+                            'assets/images/${csvRow[1]}.png',
+                            fit: BoxFit.cover,
                           ),
                         ),
                         Expanded(
@@ -94,8 +109,12 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Text(
                                   csvRow[2],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Text(
                                   csvRow[6],
@@ -105,9 +124,10 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  '${numberFormat.format(csvRow[5]).toString()}원',
+                                  csvRow[5],
                                   style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Spacer(),
                                 Row(
