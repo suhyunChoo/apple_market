@@ -13,96 +13,89 @@ class DetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('상품 상세'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-              child: ListView(
-            children: [
-              Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/${csvRow[1]}.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/${csvRow[1]}.png'),
-                        fit: BoxFit.cover,
+                  Row(
+                    children: [
+                      Icon(
+                        CupertinoIcons.person_circle_fill,
+                        color: Colors.orange,
+                        size: 60,
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            csvRow[4],
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(csvRow[6]),
+                        ],
+                      ),
+                      Spacer(),
+                      Column(
+                        children: [
+                          Text(
+                            '39.3 °C',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
+                          Text(
+                            '매너온도',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    child: Text(
+                      csvRow[2],
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              CupertinoIcons.person_circle_fill,
-                              color: Colors.orange,
-                              size: 60,
-                            ),
-                            SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  csvRow[4],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(csvRow[6]),
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                Text(
-                                  '39.3 °C',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.teal,
-                                  ),
-                                ),
-                                Text(
-                                  '매너온도',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text(
-                            csvRow[2],
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text(
-                            csvRow[3],
-                            softWrap: true, // 자동 줄바꿈 활성화
-                            overflow: TextOverflow.visible,
-                          ),
-                        ),
-                      ],
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+                    child: Text(
+                      csvRow[3],
+                      softWrap: true, // 자동 줄바꿈 활성화
+                      overflow: TextOverflow.visible,
                     ),
-                  )
+                  ),
                 ],
               ),
-            ],
-          )),
-        ],
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(

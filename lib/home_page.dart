@@ -36,7 +36,6 @@ class _HomePageState extends State<HomePage> {
           row[3] = row[3].replaceAll('+', '');
           row[3] = row[3].replaceAll('\\n', '\n');
           row[5] = '${numberFormat.format(row[5]).toString()}원';
-          print(row[3]);
         }
       }
 
