@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_applemarket_app/detail_page.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<List<dynamic>> csvData = [];
+  NumberFormat numberFormat = NumberFormat('#,###');
 
   @override
   void initState() {
@@ -103,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  ' ${csvRow[5].toString()}원',
+                                  '${numberFormat.format(csvRow[5]).toString()}원',
                                   style: TextStyle(
                                       fontSize: 16, fontWeight: FontWeight.bold),
                                 ),
@@ -113,6 +115,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Icon(CupertinoIcons.chat_bubble_2),
                                     Text(csvRow[8].toString()),
+                                    SizedBox(width: 4),
                                     Icon(CupertinoIcons.heart),
                                     Text(csvRow[7].toString()),
                                   ],
