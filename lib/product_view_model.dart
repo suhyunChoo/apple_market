@@ -41,7 +41,14 @@ class ProductViewModel extends StateNotifier<List<List<dynamic>>> {
   //상품 좋아요 기능
   Future<void> updateLike(int index)async{
     List<List<dynamic>> updatedState = List.from(state);  
-    updatedState[index][8] ++;
+    updatedState[index][7] ++;
+    updatedState[index].add(true);
+    state = updatedState;  
+  }
+  Future<void> updateUnlike(int index)async{
+    List<List<dynamic>> updatedState = List.from(state);  
+    updatedState[index][7] --;
+    updatedState[index].remove(true);
     state = updatedState;  
   }
 }

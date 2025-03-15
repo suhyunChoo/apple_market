@@ -162,7 +162,10 @@ class _HomePageState extends State<HomePage> {
                                       Icon(CupertinoIcons.chat_bubble_2),
                                       Text(csvRow[8].toString()),
                                       SizedBox(width: 4),
-                                      Icon(CupertinoIcons.heart),
+                                      csvRow.length >= 10 ?
+                                      Icon(CupertinoIcons.heart_fill,
+                                      color: Colors.red,)
+                                      :Icon(CupertinoIcons.heart),
                                       Text(csvRow[7].toString()),
                                     ],
                                   )
